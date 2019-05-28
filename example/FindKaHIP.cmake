@@ -57,7 +57,7 @@ find_library(KAHIP_LIBRARY kahip
 )
 
 find_library(MKAHIP_LIBRARY kahip
-  HINTS ${KAHIP_ROOT}/parallel/modified_kahip/deploy $ENV{KAHIP_ROOT}/parallel/modified_kahip/deploy /usr/local/KaHIP/deploy
+  HINTS ${KAHIP_ROOT}/deploy/parallel $ENV{KAHIP_ROOT}/deploy/parallel /usr/local/KaHIP/deploy/parallel
   NO_DEFAULT_PATH
   DOC "Directory where the KaHIP library is located"
 )
@@ -65,6 +65,7 @@ find_library(MKAHIP_LIBRARY kahip
 find_library(MKAHIP_LIBRARY kahip
   DOC "Directory where the KaHIP library is located"
 )
+message(STATUS "${MKAHIP_LIBRARY}")
 
 find_library(PARHIP_LIBRARY parhip
   HINTS ${KAHIP_ROOT}/deploy $ENV{KAHIP_ROOT}/deploy /usr/local/KaHIP/deploy

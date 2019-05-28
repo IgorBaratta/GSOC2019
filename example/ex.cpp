@@ -14,8 +14,8 @@ int main(int argc, char **argv) {
   int rank, n;
   MPI_Comm comm;
   MPI_Comm_dup(MPI_COMM_WORLD, &comm);
-  MPI_Comm_size(comm, &n);
-  MPI_Comm_rank(comm, &rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &n);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   if (rank == 0)
     std::cout << "Comm Size: " << n;
 
@@ -84,4 +84,7 @@ int main(int argc, char **argv) {
 
   ParHIPPartitionKWay(vtxdist, xadj, adjncy, vwgt, adjcwgt, &nparts, &imbalance,
                       suppress_output, seed, mode, &edgecut, part, &comm);
+
+  MPI_Finalize();
+  return 0;
 }
