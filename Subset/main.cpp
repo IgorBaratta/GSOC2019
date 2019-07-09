@@ -20,7 +20,7 @@ int main() {
   int subset_size = (mpi_size > 1) ? ceil(mpi_size / 2) : 1;
   MPI_Comm subset_comm = dolfin::MPI::SubsetComm(MPI_COMM_WORLD, subset_size);
 
-  const int Nd = 64;
+  const long unsigned int Nd = 64;
 
   // Create mesh using all processes
   std::array<Eigen::Vector3d, 2> pt{Eigen::Vector3d(0.0, 0.0, 0.0),
@@ -57,12 +57,6 @@ int main() {
           mpi_comm.comm(), cell_type, cells, points, global_cell_indices,
           ghost_mode, cell_partition));
 
-  assert(mesh->num_entities_global(0) == new_mesh->num_entities_global(0));
-
-  std::cout << "/* message */" << new_mesh->num_entities_global(0) << '\n';
-  std::cout << "/* message */" << mesh->num_entities_global(0) << '\n';
-
-  assert(mesh->num_entities_global(1) == new_mesh->num_entities_global(1));
-
+  PetscFinalize();
   return 0;
 }
