@@ -20,12 +20,14 @@ int main() {
   int subset_size = (mpi_size > 1) ? ceil(mpi_size / 2) : 1;
   MPI_Comm subset_comm = dolfin::MPI::SubsetComm(MPI_COMM_WORLD, subset_size);
 
+  const int Nd = 64;
+
   // Create mesh using all processes
   std::array<Eigen::Vector3d, 2> pt{Eigen::Vector3d(0.0, 0.0, 0.0),
                                     Eigen::Vector3d(1.0, 1.0, 0.0)};
   auto mesh = std::make_shared<mesh::Mesh>(generation::RectangleMesh::create(
-      MPI_COMM_WORLD, pt, {{64, 64}}, mesh::CellType::Type::triangle,
-      mesh::GhostMode::none));
+      MPI_COMM_WORLD, pt, {{Nd * mpi_size, Nd * mpi_size}},
+      mesh::CellType::Type::triangle, mesh::GhostMode::none));
 
   // Save mesh in XDMF format
   io::XDMFFile file(MPI_COMM_WORLD, "mesh.xdmf");
