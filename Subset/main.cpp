@@ -57,6 +57,5 @@ int main() {
           mpi_comm.comm(), cell_type, cells, points, global_cell_indices,
           ghost_mode, cell_partition));
 
-  PetscFinalize();
   return 0;
 }
