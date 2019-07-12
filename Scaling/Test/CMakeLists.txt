@@ -4,7 +4,7 @@
 #
 cmake_minimum_required(VERSION 3.9)
 
-set(PROJECT_NAME scaling)
+set(PROJECT_NAME weak_scaling)
 project(${PROJECT_NAME})
 
 # Set CMake behavior

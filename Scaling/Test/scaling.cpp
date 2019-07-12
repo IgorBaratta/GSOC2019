@@ -20,7 +20,8 @@ int main(int argc, char *argv[]) {
   // ----------------------------------------------- //
   // Create sub-communicator
   dolfin::common::Timer tx("___ Create sub-communicator");
-  int subset_size = (mpi_size > 1) ? ceil(mpi_size / 2) : 1;
+  // int subset_size = (mpi_size > 1) ? ceil(mpi_size / 2) : 1;
+  int subset_size = mpi_size;
   MPI_Comm subset_comm = dolfin::MPI::SubsetComm(MPI_COMM_WORLD, subset_size);
   tx.stop();
 
@@ -32,7 +33,7 @@ int main(int argc, char *argv[]) {
   std::vector<std::int64_t> global_cell_indices;
 
   std::stringstream ss;
-  ss << "../mesh" << std::to_string(mpi_size) << ".xdmf";
+  ss << "../../Meshes/files/mesh" << std::to_string(mpi_size) << ".xdmf";
 
   std::string filename = ss.str();
 
