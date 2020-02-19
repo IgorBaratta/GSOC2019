@@ -11,6 +11,9 @@ int main(int argc, char *argv[]) {
   common::SubSystemsManager::init_logging(argc, argv);
   common::SubSystemsManager::init_petsc(argc, argv);
 
+  auto mpi_comm = dolfinx::MPI::Comm(MPI_COMM_WORLD);
+  int mpi_size = dolfinx::MPI::size(mpi_comm.comm());
+
   mesh::CellType::Type cell_type;
   EigenRowArrayXXd points;
   EigenRowArrayXXi64 cells;
