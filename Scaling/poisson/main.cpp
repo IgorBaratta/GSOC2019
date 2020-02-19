@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
       mesh::GhostMode::none));
 
   // refine mesh num_refines times
-  for (unsigned int i = 0; i < 5; ++i) {
+  for (unsigned int i = 0; i < 2; ++i) {
     mesh = std::make_shared<mesh::Mesh>(refinement::refine(*mesh, false));
   }
 
