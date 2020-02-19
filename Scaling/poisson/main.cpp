@@ -114,12 +114,18 @@ int main(int argc, char *argv[]) {
   common::SubSystemsManager::init_logging(argc, argv);
   common::SubSystemsManager::init_petsc(argc, argv);
 
-  // Create mesh and function space
-  std::array<Eigen::Vector3d, 2> pt{Eigen::Vector3d(0.0, 0.0, 0.0),
-                                    Eigen::Vector3d(1.0, 1.0, 0.0)};
-  auto mesh = std::make_shared<mesh::Mesh>(generation::RectangleMesh::create(
-      MPI_COMM_WORLD, pt, {{128, 128}}, mesh::CellType::triangle,
+  // Create mesh and define function space
+  std::array<Eigen::Vector3d, 2> pt = {Eigen::Vector3d(0, 0, 0),
+                                       Eigen::Vector3d(1, 1, 1)};
+
+  auto mesh = std::make_shared<mesh::Mesh>(generation::BoxMesh::create(
+      MPI_COMM_WORLD, pt, {{20, 20, 20}}, mesh::CellType::tetrahedron,
       mesh::GhostMode::none));
+
+  // refine mesh num_refines times
+  for (unsigned int i = 0; i < 5; ++i) {
+    mesh = std::make_shared<mesh::Mesh>(refinement::refine(*mesh, false));
+  }
 
   auto V = fem::create_functionspace(poisson_functionspace_create, mesh);
 
