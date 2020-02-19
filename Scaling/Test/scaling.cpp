@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
   }
 
   // Display timings
-  dolfin::list_timings({dolfin::TimingType::wall});
+  dolfinx::list_timings(MPI_COMM_WORLD, {dolfinx::TimingType::wall});
 
   return 0;
 }
