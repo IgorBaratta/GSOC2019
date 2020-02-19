@@ -1,12 +1,12 @@
 #include <cmath>
-#include <dolfin.h>
-#include <dolfin/common/MPI.h>
+#include <dolfinx.h>
+#include <dolfinx/common/MPI.h>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
 
-using namespace dolfin;
+using namespace dolfinx;
 
 int main(int argc, char *argv[]) {
   common::SubSystemsManager::init_logging(argc, argv);
