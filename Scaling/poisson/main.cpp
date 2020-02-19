@@ -89,6 +89,7 @@
 
 #include "poisson.h"
 #include <cfloat>
+#include <dolfin/common/timing.h>
 #include <dolfinx.h>
 #include <dolfinx/function/Constant.h>
 
@@ -117,7 +118,7 @@ int main(int argc, char *argv[]) {
   std::array<Eigen::Vector3d, 2> pt{Eigen::Vector3d(0.0, 0.0, 0.0),
                                     Eigen::Vector3d(1.0, 1.0, 0.0)};
   auto mesh = std::make_shared<mesh::Mesh>(generation::RectangleMesh::create(
-      MPI_COMM_WORLD, pt, {{32, 32}}, mesh::CellType::triangle,
+      MPI_COMM_WORLD, pt, {{128, 128}}, mesh::CellType::triangle,
       mesh::GhostMode::none));
 
   auto V = fem::create_functionspace(poisson_functionspace_create, mesh);
@@ -228,6 +229,8 @@ int main(int argc, char *argv[]) {
   // Save solution in VTK format
   io::VTKFile file("u.pvd");
   file.write(u);
+
+  dolfinx::list_timings(MPI_COMM_WORLD, {dolfinx::TimingType::wall});
 
   return 0;
 }
