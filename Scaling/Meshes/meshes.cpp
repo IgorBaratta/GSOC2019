@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
   common::SubSystemsManager::init_logging(argc, argv);
   common::SubSystemsManager::init_petsc(argc, argv);
 
-  std::vector<int> num_core_list = {4, 32, 64, 128, 192, 256, 320};
+  std::vector<int> num_core_list = {20};
   const int local_size = 100000;
   const unsigned int num_refines = 3;
 
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 
     // generate mesh
     auto mesh = std::make_shared<mesh::Mesh>(generation::BoxMesh::create(
-        MPI_COMM_WORLD, pt, {{Ni, Ni, Ni}}, mesh::CellType::Type::tetrahedron,
+        MPI_COMM_WORLD, pt, {{Ni, Ni, Ni}}, mesh::CellType::tetrahedron,
         mesh::GhostMode::none));
 
     // refine mesh num_refines times
