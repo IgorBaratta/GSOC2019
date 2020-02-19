@@ -222,8 +222,8 @@ int main(int argc, char *argv[]) {
   la::PETScOptions::set("pc_type", "lu");
   lu.set_from_options();
 
-  lu.set_operator(A.mat());
-  lu.solve(u.vector().vec(), b.vec());
+  // lu.set_operator(A.mat());
+  // lu.solve(u.vector().vec(), b.vec());
 
   // The function ``u`` will be modified during the call to solve. A
   // :cpp:class:`Function` can be saved to a file. Here, we output the
@@ -232,9 +232,9 @@ int main(int argc, char *argv[]) {
   //
   // .. code-block:: cpp
 
-  // Save solution in VTK format
-  io::VTKFile file("u.pvd");
-  file.write(u);
+  // // Save solution in VTK format
+  // io::VTKFile file("u.pvd");
+  // file.write(u);
 
   dolfinx::list_timings(MPI_COMM_WORLD, {dolfinx::TimingType::wall});
 
